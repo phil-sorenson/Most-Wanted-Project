@@ -5,9 +5,9 @@
 //////////////////////////////////////////* Beginning Of Starter Code *//////////////////////////////////////////
 
 "use strict";
-//? Utilize the hotkey to hide block level comment documentation
+// ? Utilize the hotkey to hide block level comment documentation
 ////* Mac: Press "CMD"+"K" and then "CMD"+"/"
-////* PC: Press "CTRL"+"K" and then "CTRL"+"/"
+////* PC: Press "CTRL"+"K" and then "CTRL"+"/"   "CTRL" "K" + "CTRL" "J" to undo
 
 /**
  * This is the main logic function being called in index.html.
