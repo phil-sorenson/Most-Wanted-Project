@@ -1,7 +1,7 @@
 /* 
     |   Author: devCodeCamp
     |   Description: Most Wanted Starter Code
-*/
+*/  
 
 "use strict";
 

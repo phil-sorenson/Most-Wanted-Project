@@ -32,3 +32,20 @@ Total Weighted Project Points: /60
 
 Bonus
 ( /5 points): As a user, after locating a person, I want to see only that person’s descendants (display the names of the descendants), using recursion.
+
+
+# TO DO:
+
+# 1: Utilize the "displayPerson" function
+    HINT: Look for a Person-Object stringifier utility function to help
+# 1A: Finish getting the rest of the information to display in "displayPerson" function
+    gender, dob, height, weight, eye color, occupation, parents
+
+# 2: Declare a findPersonFamily function 
+    HINT: Look for a people-collection stringifier utility function to help
+
+# 3: Declare a findPersonDescendants function
+    HINT: Review recursion lecture + demo for bonus user story
+
+# 4: Declare a searchByTraits (multiple traits) function 
+    4A: Provide a option to search by a single or multiple traits
