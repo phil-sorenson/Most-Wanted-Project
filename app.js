@@ -152,21 +152,7 @@ function displayPerson(person) {
     personInfo += `Weight: ${person.weight}\n`;
     personInfo += `Eye Color:  ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
-    // if(person.parents[0] == null) {
-    //     personInfo += "No Parents Found"
-    // }
-    // else if (person.parents[0] !== null && person.parents[1] == null)
-    //     console.log (`Found a Parent! Parent: ${person.parents[0]}`)
-    // else {
-    //     console.log(`Parent 1: ${person.parents[0]}, Parent 2:  ${person.parents[1]}`);
-    // }
-    // if (person.currentSpouse == null) {
-    //     console.log ("No Spouse Found")
-    // }
-    // else {
-    //     console.log(`Current Spouse:  ${person.currentSpouse}`);
-    // }
-
+    
     alert (personInfo)
 }
     //✅! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
