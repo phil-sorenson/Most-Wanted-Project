@@ -152,8 +152,22 @@ function displayPerson(person) {
     personInfo += `Weight: ${person.weight}\n`;
     personInfo += `Eye Color:  ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
- 
-    alert(personInfo)
+    // if(person.parents[0] == null) {
+    //     personInfo += "No Parents Found"
+    // }
+    // else if (person.parents[0] !== null && person.parents[1] == null)
+    //     console.log (`Found a Parent! Parent: ${person.parents[0]}`)
+    // else {
+    //     console.log(`Parent 1: ${person.parents[0]}, Parent 2:  ${person.parents[1]}`);
+    // }
+    // if (person.currentSpouse == null) {
+    //     console.log ("No Spouse Found")
+    // }
+    // else {
+    //     console.log(`Current Spouse:  ${person.currentSpouse}`);
+    // }
+
+    alert (personInfo)
 }
     //✅! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
 
@@ -199,19 +213,33 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
-function findPersonFamily (person){
-    if(person.parents[0] == null) {
-        personInfo += "No Parents Found"
-    }
-    else if (person.parents[0] !== null && person.parents[1] == null)
-        console.log (`Found a Parent! Parent: ${person.parents[0]}`)
-    else {
-        console.log(`Parent 1: ${person.parents[0]}, Parent 2:  ${person.parents[1]}`);
-    }
+
+
+
+
+function getPerson (id, people) {
+    let person = people.filter(function(element) {
+        if(element.id == id){
+            return true;
+        }else {
+            return false;
+        }
+    });
+    return person[0]
+}
+
+function getSpouse (person, people) {
     if (person.currentSpouse == null) {
-        console.log ("No Spouse Found")
+        console.log("They have no spouse.");
     }
-    else {
-        console.log(`Current Spouse:  ${person.currentSpouse}`);
+    else{
+        let spouse = getPerson(person.currentSpouse, people)
+        console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
     }
+}  
+
+function getParents (person, people){
+    let parentOne = getPerson(person.parents[0], people)
+    let parentTwo = getPerson(person.parents[1], people)
+    console.log(`Parents: ${person.parentOne} ${person.parentTwo}`)
 }

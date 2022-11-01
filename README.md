@@ -43,7 +43,7 @@ Bonus
 
 # 2: Declare a findPersonFamily function 
     HINT: Look for a people-collection stringifier utility function to help
-
+        To figure out siblings/family; Code should include a verifier of some sort for lastName & parents
 # 3: Declare a findPersonDescendants function
     HINT: Review recursion lecture + demo for bonus user story
 
