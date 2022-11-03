@@ -199,15 +199,16 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
-
-
+function personInfo (person) {
+    let
+}
 
 
 function getPerson (id, people) {
     let person = people.filter(function(element) {
         if(element.id == id){
             return true;
-        }else {
+        } else {
             return false;
         }
     });
@@ -218,14 +219,38 @@ function getSpouse (person, people) {
     if (person.currentSpouse == null) {
         console.log("They have no spouse.");
     }
-    else{
+    else {
         let spouse = getPerson(person.currentSpouse, people)
         console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
-    }
+    } return spouse;
 }  
 
-function getParents (person, people){
-    let parentOne = getPerson(person.parents[0], people)
-    let parentTwo = getPerson(person.parents[1], people)
-    console.log(`Parents: ${person.parentOne} ${person.parentTwo}`)
+function getSibling (person, people) {
+    let sibling = people.filter(function(element){
+        if(element.lastName && element.parents == person[0]){
+            console.log(`Siblings: ${sibling.firstName} ${sibling.lastName}`)
+            return sibling;
+        } else {
+            console.log(`${person[0]} has no siblings`)
+        }
+    })
+
+}
+
+function getParents (person, people) {
+    let parents = people.filter(function(el) {
+        if(person.parents[0] == el.id || person.parents[1] == el.id ){
+            return true;
+        }
+    }); return parents; 
+    
+}
+
+
+function findPersonFamily (person,people){
+    
+}
+
+function finalString() {
+
 }
