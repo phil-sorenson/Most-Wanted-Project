@@ -206,7 +206,7 @@ function personInfo (person) {
 
 function getPerson (id, people) {
     let person = people.filter(function(element) {
-        if(element.id == id){
+        if(element.id === id){
             return true;
         } else {
             return false;
@@ -216,25 +216,24 @@ function getPerson (id, people) {
 }
 
 function getSpouse (person, people) {
-    if (person.currentSpouse == null) {
+    if (person[0].currentSpouse == null) {
         console.log("They have no spouse.");
     }
     else {
-        let spouse = getPerson(person.currentSpouse, people)
+        let spouse = getPerson(person[0].currentSpouse, people)
         console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
     } return spouse;
 }  
 
 function getSibling (person, people) {
     let sibling = people.filter(function(element){
-        if(element.lastName && element.parents == person[0]){
-            console.log(`Siblings: ${sibling.firstName} ${sibling.lastName}`)
-            return sibling;
+        if(element.parents[0] || element.parents[1] === foundPerson.parents[0] || foundPerson.parents[1]){
+            console.log(`Siblings: ${person[0].firstName} ${person[0].lastName} is siblings w/ ${sibling.firstName} ${sibling.lastName}`)
         } else {
-            console.log(`${person[0]} has no siblings`)
+            console.log(`${foundPerson.firstName} ${foundPerson.lastName} has no siblings`)
         }
-    })
-
+    }); return sibling;
+    
 }
 
 function getParents (person, people) {
