@@ -30,7 +30,7 @@ function app(people) {
             break;
         case "no":
             function searchByTraits (people) {
-                let gender = promptFor("What is the person's Gender?", chars)
+                // let gender = promptFor("What is the person's Gender?", chars)
             }
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
@@ -78,6 +78,7 @@ function mainMenu(person, people) {
         case "family":
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
+            let personFamily = (findById, findSiblings, findParents)
             let personFamily = findPersonFamily(person[0], people);
             alert(personFamily);
             break;
@@ -199,57 +200,102 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
-function personInfo (person) {
-    let
-}
+//! TODO: 
+//Create personFamily function
+    // 
+// Create searchByTrait function 
+    // Allow user to search by a single trait (returns an Array of any person who fits that criteria)
+    // Allow user to search by multiple trait (returns an Array or people)
+
+// function personInfo (person) {
+//     let
+
+// USE CODE BELOW FOR A BETTER VARIFYING CODE (Rather then 'chars')
+
+// try {
+//     if(element[userInputProperty].includes(userInputValue)){
+//         return true;
+//     }
+// } catch (error) {
+//    console.log(error); 
+// }
+// finally {
+//     if(element[userInputProperty]=== parseInt(userInputValue)){
+//        return true; 
+//     }
+// }
 
 
-function getPerson (id, people) {
-    let person = people.filter(function(element) {
-        if(element.id === id){
+function getSpouse () {
+    let spouse = person[0].currentSpouse;
+        console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
+    
+    if (person[0].currentSpouse === null) {
+        console.log (`${person[0].firstName} ${person[0].lastName} has no spouse`);
+        return false;
+        }   
+    } return spouse;  
+
+
+function getParents (people) {
+    let parents = people.filter(function(el) {
+        if(person[0].parents[0] === el.id || person[0].parents[1] === el.id){
             return true;
         } else {
             return false;
-        }
-    });
-    return person[0]
-}
-
-function getSpouse (person, people) {
-    if (person[0].currentSpouse == null) {
-        console.log("They have no spouse.");
-    }
-    else {
-        let spouse = getPerson(person[0].currentSpouse, people)
-        console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
-    } return spouse;
-}  
-
-function getSibling (person, people) {
-    let sibling = people.filter(function(element){
-        if(element.parents[0] || element.parents[1] === foundPerson.parents[0] || foundPerson.parents[1]){
-            console.log(`Siblings: ${person[0].firstName} ${person[0].lastName} is siblings w/ ${sibling.firstName} ${sibling.lastName}`)
-        } else {
-            console.log(`${foundPerson.firstName} ${foundPerson.lastName} has no siblings`)
-        }
-    }); return sibling;
-    
-}
-
-function getParents (person, people) {
-    let parents = people.filter(function(el) {
-        if(person.parents[0] == el.id || person.parents[1] == el.id ){
-            return true;
         }
     }); return parents; 
     
 }
 
-
-function findPersonFamily (person,people){
+function getSibling (people) {
+    let sibling = people.filter(function(element){
+        if(element.parents[0] || element.parents[1] === person[0].parents[0] || person[0].parents[1]) {
+            console.log(`Sibling(s): ${sibling.firstName} ${sibling.lastName} \n`)
+            return true;
+        } else {
+            // console.log(`${person[0].firstName} ${person[0].lastName} has no siblings!`)
+            return false;
+        }
+    }); return sibling;
     
 }
 
+
+
 function finalString() {
 
+}
+
+// Make sure to run a check 
+function findPersonFami(personObj={}, peopleArr=[]){
+    let spouse = findById(personObj, peopleArr, "currentSpouse")
+    // displayPeople(spouse)
+    let parents = findParents(personObj, peopleArr);
+    let siblings = findSiblings(personObj,peopleArr);
+    // return spouse.concat(parents).concat(siblings)
+    // return {spouse:spouse, parents:parents, siblings:siblings}
+    let fam = {
+
+    }
+}
+
+function findById(personObj, peopleArr, personPropStr){
+    return peopleArr.filter(function(person){
+        return personObj[personPropStr] === person.id
+    }); 
+}   
+
+
+function findParents (personObj, peopleArr){
+    return peopleArr.filter(function(person){
+       return personObj.parents.includes(person.id) // code explained --> Does the personObj's array include the parents ID? 
+    })
+}
+
+function findSiblings(personObj, peopleArr){
+    // Does this array item contain the same ID as MY parents array in theirs?
+    return peopleArr.filter(function(person){
+        return personObj.parents.includes(person.parents[0]) || personObj.parents.includes(person.parents[1])
+    }
 }
