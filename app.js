@@ -29,9 +29,9 @@ function app(people) {
             searchResults = searchByName(people);
             break;
         case "no":
-            function searchByTraits (people) {
+            // function searchByTraits (people) {
                 // let gender = promptFor("What is the person's Gender?", chars)
-            }
+            // }
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             searchResults = searchByTraits(people);
@@ -78,14 +78,16 @@ function mainMenu(person, people) {
         case "family":
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
-            let personFamily = (findById, findSiblings, findParents)
-            let personFamily = findPersonFamily(person[0], people);
-            alert(personFamily);
+            let parents = findParents(person[0],people)
+            // let personFamily = (findById, findSiblings, findParents)
+            // let personFamily = findPersonFamily(person[0], people);
+            // alert(personFamily);
+            displayPeople(parents);
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
-            let personDescendants = findPersonDescendants(person[0], people);
+            // let personDescendants = findPersonDescendants(person[0], people);
             alert(personDescendants);
             break;
         case "restart":
@@ -237,9 +239,9 @@ function getSpouse () {
     } return spouse;  
 
 
-function getParents (people) {
+function getParents (person, people) {
     let parents = people.filter(function(el) {
-        if(person[0].parents[0] === el.id || person[0].parents[1] === el.id){
+        if(person.parents[0] === el.id || person.parents[1] === el.id){
             return true;
         } else {
             return false;
@@ -248,18 +250,18 @@ function getParents (people) {
     
 }
 
-function getSibling (people) {
-    let sibling = people.filter(function(element){
-        if(element.parents[0] || element.parents[1] === person[0].parents[0] || person[0].parents[1]) {
-            console.log(`Sibling(s): ${sibling.firstName} ${sibling.lastName} \n`)
-            return true;
-        } else {
-            // console.log(`${person[0].firstName} ${person[0].lastName} has no siblings!`)
-            return false;
-        }
-    }); return sibling;
+// function getSibling (person, people) {
+//     let sibling = people.filter(function(element){
+//         if(person.parents[0] === element.id || person.parents[1] === element person[0].parents[0] || person[0].parents[1]) {
+//             console.log(`Sibling(s): ${sibling.firstName} ${sibling.lastName} \n`)
+//             return true;
+//         } else {
+//             // console.log(`${person[0].firstName} ${person[0].lastName} has no siblings!`)
+//             return false;
+//         }
+//     }); return sibling;
     
-}
+// }
 
 
 
@@ -297,5 +299,5 @@ function findSiblings(personObj, peopleArr){
     // Does this array item contain the same ID as MY parents array in theirs?
     return peopleArr.filter(function(person){
         return personObj.parents.includes(person.parents[0]) || personObj.parents.includes(person.parents[1])
-    }
+    })
 }
