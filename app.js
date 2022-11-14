@@ -33,9 +33,7 @@ function app(people) {
             searchType = promptFor("Search by Traits: Please enter 'Traits' to search for",chars).toLowerCase();
             searchResults = searchByTraits(people);
                 
-            // function searchByTraits (people) {
-                // let gender = promptFor("What is the person's Gender?", chars)
-            // }
+           
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             break;
@@ -93,7 +91,6 @@ function mainMenu(person, people) {
             // let personDescendants = findPersonDescendants(person[0], people);
             let personDescendants = displayPeople(findPersonDescendants(person[0],people));
             alert(personDescendants);
-            
             break;
         case "restart":
             // Restart app() from the very beginning
