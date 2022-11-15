@@ -324,19 +324,7 @@ function checkResults (personArray) {
 }
 
 
-// case 'no':
-//     let secondarySearch /* or searchType */ = promptFor("Do you want to search by ID or by Traits? Enter 'ID' or 'traits'", chars).toLowerCase(); 
-//     switch(secondarySearch) {
-//         case 'id':
-//             searchResult /* or foundPerson */ = searchById(people);
-//             mainMenu(checkSingleResults(foundPerson),data);
-//             break;
 
-//         case 'traits':
-//             searchResult /* or foundPerson */ = searchByTraits(people);
-//             mainMenu(checkSingleResults(foundPerson), data);
-//             break;
-//     }
 
 function getSpouse (person) {
     let spouse = person.currentSpouse;
