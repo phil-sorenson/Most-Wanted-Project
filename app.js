@@ -22,17 +22,17 @@ function app(people) {
         "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
         yesNo
     ).toLowerCase();
-    let searchResult;
+    let foundPerson;
     // Routes our application based on the user's input
     switch (searchType) {
         case "yes":
-            searchResult = searchByName(people);
+            foundPerson = searchByName(people);
             // mainMenu(checkResults(searchResult), data)
             break;
         case "no":
             
-            searchResult = searchByTraits(people);
-            mainMenu(checkSingleResult(searchResult), people)    
+            foundPerson = searchByTraits(people);
+            mainMenu(checkSingleResult(foundPerson), people)    
            
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
@@ -45,7 +45,7 @@ function app(people) {
             break;
     }
     // Calls the mainMenu() only AFTER we find the SINGLE PERSON
-    mainMenu(searchResult, people);
+    mainMenu(foundPerson, people);
 }
 // End of app()
 
@@ -65,21 +65,21 @@ function mainMenu(person, people) {
         return app(people); // Restarts app() from the very beginning
     }
     
-    // if (Array.isArray(person)) {
-    //     displayPeople(person);
-    //         person = findById(people);
-    //         if (person.length > 1) {
-    //             alert("More than one result...Returning to Main Menu");
-    //             return app(people)
-    //         }
-    //         else if (person.length === 0) {
-    //             alert("Could not find that Person.");
-    //             return app(people)
-    //         }
-    //         else {
-    //             person = checkResults(person);
-    //         }
-    // }
+    if (Array.isArray(person)) {
+        displayPeople(person);
+            person = findById(people);
+            if (person.length > 1) {
+                alert("More than one result...Returning to Main Menu");
+                return app(people)
+            }
+            else if (person.length === 0) {
+                alert("Could not find that Person.");
+                return app(people)
+            }
+            else {
+                person = checkSingleResult(person);
+            }
+    }
 
     let displayOption = prompt(
         `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
@@ -148,12 +148,13 @@ function searchByName(people) {
 // Search by one of more traits 
 function searchByTraits(people) {        // Need only 2 but can search up to 5
     let searchedTrait = promptFor("Let's find the person by entering a few of their Traits!\n What would you like to search first?\n'gender', 'eye color', 'height(in)', 'weight(lbs)', or 'occupation'",chars).toLowerCase()
+    
     let peopleByTrait;
     
     switch(searchedTrait) {
         case "gender":
-            peopleByTrait = genderArray(people);
-            alert(peopleByTrait);
+            peopleByTrait = genderArray(people)
+            displayPeople(peopleByTrait);
     }
 
 
@@ -230,7 +231,7 @@ function displayPeople(people) {
                 return `${person.firstName} ${person.lastName}`;
             })
             .join("\n")
-    );
+    )
 }
 // End of displayPeople()
 
