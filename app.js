@@ -65,6 +65,7 @@ function mainMenu(person, people) {
         return app(people); // Restarts app() from the very beginning
     }
     
+//! NEED TO WORK ON THIS FUNCTIONALITY
     if (Array.isArray(person)) {
         displayPeople(person);
             person = searchByTraits(peopleByTrait);
@@ -240,8 +241,11 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
         } return peopleByTrait;
     }
 
-        function additionalTraitSearch (peopleByTrait) {
+        function additionalTraitSearch (peopleArr) {
+            let addedTraitFilter = promptFor("What Trait would u like to search for next? 'gender', 'eye color', 'height', 'weight', or 'occupation'")
 
+            let peopleArr = displayPeople(peopleByTrait);
+        
         }
 
     }
