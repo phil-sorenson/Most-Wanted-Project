@@ -22,17 +22,17 @@ function app(people) {
         "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
         yesNo
     ).toLowerCase();
-    let foundPerson;
+    let searchResult;
     // Routes our application based on the user's input
     switch (searchType) {
         case "yes":
-            foundPerson = searchByName(people);
+            searchResult = searchByName(people);
             // mainMenu(checkResults(searchResult), data)
             break;
         case "no":
             
-            foundPerson = searchByTraits(people);
-            mainMenu(checkSingleResult(foundPerson), people)    
+            searchResult = searchByTraits(people);
+            // mainMenu(checkSingleResult(foundPerson), people)    
            
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
@@ -45,7 +45,7 @@ function app(people) {
             break;
     }
     // Calls the mainMenu() only AFTER we find the SINGLE PERSON
-    mainMenu(foundPerson, people);
+    mainMenu(searchResult, people);
 }
 // End of app()
 
@@ -67,7 +67,7 @@ function mainMenu(person, people) {
     
     if (Array.isArray(person)) {
         displayPeople(person);
-            person = findById(people);
+            person = searchByTraits(peopleByTrait);
             if (person.length > 1) {
                 alert("More than one result...Returning to Main Menu");
                 return app(people)
@@ -147,7 +147,7 @@ function searchByName(people) {
 
 // Search by one of more traits 
 function searchByTraits(people) {        // Need only 2 but can search up to 5
-    let searchedTrait = promptFor("Let's find the person by entering a few of their Traits!\n What would you like to search first?\n'gender', 'eye color', 'height(in)', 'weight(lbs)', or 'occupation'",chars).toLowerCase()
+    let searchedTrait = promptFor("Let's find the person by entering a few of their Traits!\n What would you like to search for?\n'gender', 'eye color', 'height(in)', 'weight(lbs)', or 'occupation'",chars).toLowerCase()
     
     let peopleByTrait;
     
@@ -155,6 +155,23 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
         case "gender":
             peopleByTrait = genderArray(people)
             displayPeople(peopleByTrait);
+            additionalTraitSearch(people)
+        case "eye color":
+            peopleByTrait = eyeColorArray(people)
+            displayPeople(peopleByTrait);
+            additionalTraitSearch(people)
+        case "height":
+            peopleByTrait = heightArray(people)
+            displayPeople(peopleByTrait);
+            additionalTraitSearch(people)
+        case "weight":
+            peopleByTrait = weightArray(people)
+            displayPeople(peopleByTrait);
+            additionalTraitSearch(people)
+        case "occupation":
+            peopleByTrait = occupationArray(people)
+            displayPeople(peopleByTrait);
+            additionalTraitSearch(people)
     }
 
 
@@ -171,51 +188,64 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
         } return peopleByTrait;
     }
     
-
-    if (eyeColorPrompt == "yes") {
-        let eyeColor = promptFor("What is the Person's eye color?", nonInteger);
-        peopleByTrait = peopleByTrait.filter(function(person){
-            if (person.eyeColor.toLowerCase() === eyeColor.toLowerCase()){
-                return true;
-            } else {
-                return false;
-            }
-        })
+    function eyeColorArray (people) {
+        if (searchedTrait == "eye color") {
+                let eyeColor = promptFor("What is the Person's eye color?", nonInteger);
+                peopleByTrait = people.filter(function(person){
+                    if (person.eyeColor.toLowerCase() === eyeColor.toLowerCase()){
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+            } return peopleByTrait;
+    }
+    
+    function heightArray(people) {
+        if (searchedTrait == "height") {
+            let height = promptFor("What is the Person's height in inches?", integer);
+            peopleByTrait = people.filter(function(person){
+                if (person.height === height){
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+        } return peopleByTrait;
+    }
+    
+    function weightArray (people) {
+        if (searchedTrait == "weight") {
+            let weight = promptFor("What is the Person's weight in lbs?", integer);
+            peopleByTrait = people.filter(function(person){
+                if (person.weight === weight){
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+        } return peopleByTrait;
+    }
+    
+    function occupationArray (people) {
+        if (searchedTrait == "occupation") {
+            let occupation = promptFor("What is the Person's occupation?", nonInteger);
+            peopleByTrait = people.filter(function(person){
+                if (person.occupation.toLowerCase() === occupation.toLowerCase()){
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+        } return peopleByTrait;
     }
 
-    if (heightPrompt == "yes") {
-        let height = promptFor("What is the Person's height?", integer);
-        peopleByTrait = peopleByTrait.filter(function(person){
-            if (person.height === height){
-                return true;
-            } else {
-                return false;
-            }
-        })
-    }
+        function additionalTraitSearch (peopleByTrait) {
 
-    if (weightPrompt == "yes") {
-        let weight = promptFor("What is the Person's weight?", integer);
-        peopleByTrait = peopleByTrait.filter(function(person){
-            if (person.weight === weight){
-                return true;
-            } else {
-                return false;
-            }
-        })
-    }
+        }
 
-    if (occupationPrompt == "yes") {
-        let occupation = promptFor("What is the Person's occupation?", nonInteger);
-        peopleByTrait = peopleByTrait.filter(function(person){
-            if (person.occupation.toLowerCase() === occupation.toLowerCase()){
-                return true;
-            } else {
-                return false;
-            }
-        })
-    } return peopleByTrait;
-}
+    }
+    
 
 
 /**
