@@ -438,6 +438,7 @@ descendants = people.filter(function (descendants) {
   })
 
 function getSpouse (person) {
+    let spouseString = "Current Spouse: "
     let spouse = person.currentSpouse;
         console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
     
