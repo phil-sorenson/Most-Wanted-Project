@@ -148,103 +148,110 @@ function searchByName(people) {
 
 // Search by one of more traits 
 function searchByTraits(people) {        // Need only 2 but can search up to 5
-    let searchedTrait = promptFor("Let's find your person by entering some of their Traits!\n What trait would you like to search for?\n'gender', 'eye color', 'height(in)', 'weight(lbs)', or 'occupation'",chars).toLowerCase()
     
-    let peopleByTrait;
+    let peopleByTrait = people;
+    while (true){
+        let searchedTrait = promptFor("Let's find your person by entering some of their Traits!\n What trait would you like to search for?\n'gender', 'eye color', 'height(in)', 'weight(lbs)', or 'occupation'",chars).toLowerCase()
+    
+
     
     switch(searchedTrait) {
         case "gender":
-            peopleByTrait = genderArray(people)
+            peopleByTrait = genderArray(peopleByTrait)
             if (peopleByTrait.length > 1) {
                 alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
-                searchByTraits(peopleByTrait)
+                
             } else if (peopleByTrait.length === 1){
-                alert(`Found Your Person! ${displayPeople(peopleByTrait)}`)
+                alert(`Your person was found! ${peopleByTrait[0].firstName} ${peopleByTrait[0].lastName}`)
                 // displayPeople(peopleByTrait)
-                break;
+                return peopleByTrait;
             } else {
                 alert("No results Found. \n Let's try again from the beginning!")
                 app(people)
             }
-            
+            break
             
         case "eye color":
-            peopleByTrait = eyeColorArray(people)
+            peopleByTrait = eyeColorArray(peopleByTrait)
             if (peopleByTrait.length > 1) {
                 alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
-                searchByTraits(peopleByTrait)
+            
             } else if (peopleByTrait.length === 1){
-                alert(`Found Your Person! ${displayPeople(peopleByTrait)}`)
+                alert(`Your person was found! ${peopleByTrait[0].firstName} ${peopleByTrait[0].lastName}`)
                 // displayPeople(peopleByTrait);
-                break;
+                return peopleByTrait;
             } else {
                 alert("No results Found. \n Let's try again from the beginning!")
                 app(people)
             }
-            
-        case "height":
-            peopleByTrait = heightArray(people)
-            if (peopleByTrait.length > 1) {
-                alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
-                searchByTraits(peopleByTrait)
-            } else if (peopleByTrait.length === 1){
-                alert(`Found Your Person! ${displayPeople(peopleByTrait)}`)
-                // displayPeople(peopleByTrait)
-                break;
-            } else {
-                alert("No results Found. \n Let's try again from the beginning!")
-                app(people)
-            }
-            
-        case "weight":
-            peopleByTrait = weightArray(people)
-            if (peopleByTrait.length > 1) {
-                alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
-                searchByTraits(peopleByTrait)
-            } else if (peopleByTrait.length === 1){
-                alert(`Found Your Person! ${displayPeople(peopleByTrait)}`)
-                // displayPeople(peopleByTrait)
-                break;
-            } else {
-                alert("No results Found. \n Let's try again from the beginning!")
-                app(people)
-            }
+            break
 
-        case "occupation":
-            peopleByTrait = occupationArray(people)
+        case "height":
+            peopleByTrait = heightArray(peopleByTrait)
             if (peopleByTrait.length > 1) {
                 alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
-                searchByTraits(peopleByTrait)
+            
             } else if (peopleByTrait.length === 1){
-                alert(`Found Your Person! ${displayPeople(peopleByTrait)}`)
+                alert(`Your person was found! ${peopleByTrait[0].firstName} ${peopleByTrait[0].lastName}`)
                 // displayPeople(peopleByTrait)
-                break;
+                return peopleByTrait;
+            } else {
+                alert("No results Found. \n Let's try again from the beginning!")
+                app(people)
+            }
+            break
+        case "weight":
+            peopleByTrait = weightArray(peopleByTrait)
+            if (peopleByTrait.length > 1) {
+                alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
+                
+            } else if (peopleByTrait.length === 1){
+                alert(`Your person was found! ${peopleByTrait[0].firstName} ${peopleByTrait[0].lastName}`)
+                // displayPeople(peopleByTrait)
+                return peopleByTrait;
+            } else {
+                alert("No results Found. \n Let's try again from the beginning!")
+                app(people)
+            }
+            break
+        case "occupation":
+            peopleByTrait = occupationArray(peopleByTrait)
+            if (peopleByTrait.length > 1) {
+                alert(`${peopleByTrait.length} results found. Lets search for your person with another trait!`)
+                
+            } else if (peopleByTrait.length === 1){
+                alert(`Your person was found! ${peopleByTrait[0].firstName} ${peopleByTrait[0].lastName}`)
+                // displayPeople(peopleByTrait)
+                return peopleByTrait;
             } else {
                 alert("No results Found. \n Let's try again from the beginning!")
                 app(people)
             }    
+            break
         }
+    }
+    }
 
 
     function genderArray (people) {
-        if (searchedTrait == "gender") {
+      
             let gender = promptFor("What is the Person's gender?", chars);
-            peopleByTrait = people.filter(function(person){
+            let peopleByTrait = people.filter(function(person){
                 if (person.gender.toLowerCase() === gender.toLowerCase()){
                     return true;
                 } else {
                     return false;
                 }
             }) 
-        } 
+        
         displayPeople(peopleByTrait);
         return peopleByTrait;
     }
     
     function eyeColorArray (people) {
-        if (searchedTrait == "eye color") {
+        
                 let eyeColor = promptFor("What is the Person's eye color?", chars);
-                peopleByTrait = people.filter(function(person){
+                let peopleByTrait = people.filter(function(person){
                     if (person.eyeColor.toLowerCase() === eyeColor.toLowerCase()){
                         
                         return true;
@@ -252,57 +259,56 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
                         return false;
                     }
                 })
-            } 
+            
             displayPeople(peopleByTrait);
             return peopleByTrait;
     }
     
     function heightArray(people) {
-        if (searchedTrait == "height") {
+        
             let height = promptFor("What is the Person's height in inches?", chars);
-            peopleByTrait = people.filter(function(person){
+            let peopleByTrait = people.filter(function(person){
                 if (person.height === height){
                     return true;
                 } else {
                     return false;
                 }
             })
-        } 
+        
         displayPeople(peopleByTrait);
         return peopleByTrait;
     }
     
     function weightArray (people) {
-        if (searchedTrait == "weight") {
+       
             let weight = promptFor("What is the Person's weight in lbs?",chars);
-            peopleByTrait = people.filter(function(person){
+            let peopleByTrait = people.filter(function(person){
                 if (person.weight === weight){
                     return true;
                 } else {
                     return false;
                 }
             })
-        } 
+    
         displayPeople(peopleByTrait);
         return peopleByTrait;
     }
     
     function occupationArray (people) {
-        if (searchedTrait == "occupation") {
+      
             let occupation = promptFor("What is the Person's occupation?", chars);
-            peopleByTrait = people.filter(function(person){
+            let peopleByTrait = people.filter(function(person){
                 if (person.occupation.toLowerCase() === occupation.toLowerCase()){
                     return true;
                 } else {
                     return false;
                 }
             })
-        } 
+        
         displayPeople(peopleByTrait);
         return peopleByTrait;
     } 
         
-    } 
 
     // TODO:
     // Fix/Write code to verify Trait input (even after people have been filtered through once or twice, if user mispells the searched trait, it prompts you to type it again but loops through undefined and shows "no results")
@@ -410,32 +416,36 @@ function chars(input) {
     // Allow user to search by a single trait (returns an Array of any person who fits that criteria)
     // Allow user to search by multiple trait (returns an Array or people)
 
-// function checkSingleResult (personArray) {
-//     if (personArray.length === 1){
-//         return personArray [0];
-//     } else if (personArray.length > 1) {
-//         return personArray;
-//     } else {
-//         return undefined; /* or false? */
-//     }
-// }
+function checkSingleResult (personArray) {
+    if (personArray.length === 1){
+        return personArray [0];
+    } else if (personArray.length > 1) {
+        return personArray;
+    } else {
+        return undefined; /* or false? */
+    }
+}
 
 function displayFamily(person, people) {
     let parentsString = getParents(person, people);
     let spouseString = getSpouse(person, people);
-    let descendantString = "Children: "
-    let descendants;
+    let childString = "Childre: "
+    let children;
     let foundDesecendants = [];
 }
 
-descendants = people.filter(function (descendants) {
-    for (let i = 0; i < descendants.parents.length; i++) {
-      if (person.id === descendants.parents[i]) {
-        return true;
-      }
-    }
-    return false;
-  })
+function getDescendants (person, people, foundDesecendants = []) {
+    let descendants = [];
+    descendants = people.filter(function(el) {
+        for (let i = 0; i < el.parents.length; i++) {
+            if(person.id === el.parents[i]){
+                return true;
+            }  
+        }
+         return false;   
+    });
+}
+    
 
 function getSpouse (person) {
     let spouseString = "Current Spouse: "
@@ -476,17 +486,17 @@ function getParents (person, people) {
 
 
 // Make sure to run a check 
-function findPersonFamily(personObj={}, peopleArr=[]){
-    let spouse = findById(personObj, peopleArr, "currentSpouse")
-    // displayPeople(spouse)
-    let parents = findParents(personObj, peopleArr);
-    let siblings = findSiblings(personObj,peopleArr);
-    // return spouse.concat(parents).concat(siblings)
-    // return {spouse:spouse, parents:parents, siblings:siblings}
-    let fam = {
+// function findPersonFamily(personObj={}, peopleArr=[]){
+//     let spouse = findById(personObj, peopleArr, "currentSpouse")
+//     // displayPeople(spouse)
+//     let parents = findParents(personObj, peopleArr);
+//     let siblings = findSiblings(personObj,peopleArr);
+//     // return spouse.concat(parents).concat(siblings)
+//     // return {spouse:spouse, parents:parents, siblings:siblings}
+//     let fam = {
 
-    }
-}
+//     }
+// }
 
 function findById(person, people, personPropStr){
     return people.filter(function(person){
