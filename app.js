@@ -155,24 +155,24 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
     switch(searchedTrait) {
         case "gender":
             peopleByTrait = genderArray(people)
-            displayPeople(peopleByTrait);
-            additionalTraitSearch(people)
+            if (peopleByTrait.length > 1) {
+                searchByTraits(peopleByTrait)
+            }
+            
         case "eye color":
             peopleByTrait = eyeColorArray(people)
-            displayPeople(peopleByTrait);
-            additionalTraitSearch(people)
+            
+            
         case "height":
             peopleByTrait = heightArray(people)
-            displayPeople(peopleByTrait);
-            additionalTraitSearch(people)
+            
+            
         case "weight":
             peopleByTrait = weightArray(people)
-            displayPeople(peopleByTrait);
-            additionalTraitSearch(people)
+           
         case "occupation":
             peopleByTrait = occupationArray(people)
-            displayPeople(peopleByTrait);
-            additionalTraitSearch(people)
+           
     }
 
 
@@ -186,7 +186,8 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
                     return false;
                 }
             }) 
-        } return peopleByTrait;
+        } displayPeople(peopleByTrait);
+        return peopleByTrait;
     }
     
     function eyeColorArray (people) {
@@ -199,7 +200,8 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
                         return false;
                     }
                 })
-            } return peopleByTrait;
+            } displayPeople(peopleByTrait);
+            return peopleByTrait;
     }
     
     function heightArray(people) {
@@ -212,7 +214,8 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
                     return false;
                 }
             })
-        } return peopleByTrait;
+        } displayPeople(peopleByTrait);
+        return peopleByTrait;
     }
     
     function weightArray (people) {
@@ -225,7 +228,8 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
                     return false;
                 }
             })
-        } return peopleByTrait;
+        } displayPeople(peopleByTrait);
+        return peopleByTrait;
     }
     
     function occupationArray (people) {
@@ -238,15 +242,11 @@ function searchByTraits(people) {        // Need only 2 but can search up to 5
                     return false;
                 }
             })
-        } return peopleByTrait;
+        } displayPeople(peopleByTrait);
+        return peopleByTrait;
     }
 
-        function additionalTraitSearch (peopleArr) {
-            let addedTraitFilter = promptFor("What Trait would u like to search for next? 'gender', 'eye color', 'height', 'weight', or 'occupation'")
-
-            let peopleArr = displayPeople(peopleByTrait);
         
-        }
 
     }
     
