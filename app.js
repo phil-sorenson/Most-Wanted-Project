@@ -64,23 +64,6 @@ function mainMenu(person, people) {
         alert("Could not find that individual.");
         return app(people); // Restarts app() from the very beginning
     }
-    
-//! NEED TO WORK ON THIS FUNCTIONALITY
-    // if (Array.isArray(person)) {
-    //     displayPeople(person);
-    //         person = searchByTraits(peopleByTrait);
-    //         if (person.length > 1) {
-    //             alert("More than one result...Returning to Main Menu");
-    //             return app(people)
-    //         }
-    //         else if (person.length === 0) {
-    //             alert("Could not find that Person.");
-    //             return app(people)
-    //         }
-    //         else {
-    //             person = checkSingleResult(person);
-    //         }
-    // }
 
     let displayOption = prompt(
         `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
@@ -96,21 +79,28 @@ function mainMenu(person, people) {
             alert(personInfo);
             break;
         case "family":
+            findPersonSpouse(person,people);
+            findPersonSiblings(person,people);
+            findPersonParents(person,people);
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             // let parents = findParents(person[0],people)
             // let personFamily = (findById, findSiblings, findParents)
             // let personFamily = findPersonFamily(person[0], people);
-            let personFamily = findPersonFamily(person[0], people)
-            alert(personFamily);
-            // displayPeople(parents);
+            // let personFamily = findPersonFamily(person[0], people)
+            // alert(personFamily);
+            // // displayPeople(parents);
+            mainMenu(person,people);
             break;
         case "descendants":
+            findPersonDescendants(person,people);
+            displayPeople(descendantsArr);
+            mainMenu(person,people)
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             // let personDescendants = findPersonDescendants(person[0], people);
-            let personDescendants = displayPeople(findPersonDescendants(person[0],people));
-            alert(personDescendants);
+            // let personDescendants = displayPeople(findPersonDescendants(person[0],people));
+            // alert(personDescendants);
             break;
         case "restart":
             // Restart app() from the very beginning
@@ -329,6 +319,65 @@ function displayPeople(people) {
     )
 }
 // End of displayPeople()
+// Display Family
+function displayFamilyInfo (foundPerson, relationship) {
+    if(foundPerson.length < 1){
+        alert(`This person has no ${relationship}.`);
+    }
+    else {
+        alert(foundPerson.map(function(person){
+            return (`${relationship}: ${person.firstName} ${person.lastName}`);
+        }).join("\n"));
+    }
+}
+
+function findPersonSpouse (person, people) {
+    let foundPerson = people.filter(function(el){
+        if(el.currentSpouse === person.id) {
+            return true;
+        } 
+        return false;
+    })
+    displayFamilyInfo(foundPerson, "Spouse")
+}
+
+function findPersonSiblings(foundPerson, people){
+    // Does this array item contain the same ID as MY parents array in theirs?
+    let foundPerson = people.filter(function(person){
+        return person.parents.includes(person.parents[0]) || person.parents.includes(person.parents[1])
+    })
+    displayFamilyInfo(foundPerson, "Sibling")
+}
+
+function findPersonParents (person, people) {
+    let foundPerson = people.filter(function(el) {
+        if(el.id === person.parents[0] || el.id === person.parents[1]){
+            return true;
+        } else {
+            return false;
+        }
+    }); displayFamilyInfo(foundPerson, "Parent"); 
+    
+}
+
+function findPersonDescendants(person,people){
+    let descendantsArr = []
+    let ID = person.id;
+    let foundPerson = people.filter(function(person){
+        if(person.parents.includes(ID)){
+            if(person != descendantsArr){
+                descendantsArr.push(person);
+                return true;
+            }
+        } else {
+            return true;
+        }
+        return false;
+    })
+    for(let i=foundPerson.length -1; i>=0; i--){
+        findPersonDescendants(foundPerson[i],people);
+    }
+}   
 
 /**
  * This function will be useful for STRINGIFYING a person-object's properties
@@ -416,81 +465,54 @@ function chars(input) {
     // Allow user to search by a single trait (returns an Array of any person who fits that criteria)
     // Allow user to search by multiple trait (returns an Array or people)
 
-function checkSingleResult (personArray) {
-    if (personArray.length === 1){
-        return personArray [0];
-    } else if (personArray.length > 1) {
-        return personArray;
-    } else {
-        return undefined; /* or false? */
-    }
-}
-
-function displayFamily(person, people) {
-    let parentsString = getParents(person, people);
-    let spouseString = getSpouse(person, people);
-    let childString = "Childre: "
-    let children;
-    let foundDesecendants = [];
-}
-
-function getDescendants (person, people, foundDesecendants = []) {
-    let descendants = [];
-    descendants = people.filter(function(el) {
-        for (let i = 0; i < el.parents.length; i++) {
-            if(person.id === el.parents[i]){
-                return true;
-            }  
-        }
-         return false;   
-    });
-}
-    
-
-function getSpouse (person) {
-    let spouseString = "Current Spouse: "
-    let spouse = person.currentSpouse;
-        console.log(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
-    
-    if (person.currentSpouse === null) {
-        console.log (`${person.firstName} ${person.lastName} has no spouse`);
-        return false;
-        }  return spouse;  
-    }  
-
-
-function getParents (person, people) {
-    let parentsString = "Parent(s):"
-    let parents = people.filter(function(el) {
-        if(person.parents[0] === el.id || person.parents[1] === el.id){
-            return true;
-        } else {
-            return false;
-        }
-    }); return parents; 
-    
-}
-
-// function getSibling (person, people) {
-//     let sibling = people.filter(function(element){
-//         if(person.parents[0] === element.id || person.parents[1] === element person[0].parents[0] || person[0].parents[1]) {
-//             console.log(`Sibling(s): ${sibling.firstName} ${sibling.lastName} \n`)
-//             return true;
-//         } else {
-//             // console.log(`${person[0].firstName} ${person[0].lastName} has no siblings!`)
-//             return false;
-//         }
-//     }); return sibling;
-    
+// function checkSingleResult (personArray) {
+//     if (personArray.length === 1){
+//         return personArray [0];
+//     } else if (personArray.length > 1) {
+//         return personArray;
+//     } else {
+//         return undefined; /* or false? */
+//     }
 // }
+
+// function findPersonChildren (person, people, descendants = []) {
+//     let children = people.filter(function(el){
+//         if(el.parents.includes(person.id)){
+//             return true;
+//         }
+//     }) 
+//     return false;
+// } 
+// if (children.length == 0){
+//     return descendants;
+// }
+
+    
+
+
+
+// function findSiblings (person, people) {
+//     let sibling = people.filter(function(element){
+//         if(person.parents[0] === element.id || person.parents[1] === element.id || person[0].parents[0] || person[0].parents[1]) {
+//             return true;
+//         } 
+//             return false;
+//         })
+//     }; return sibling;
+
 
 
 // Make sure to run a check 
-// function findPersonFamily(personObj={}, peopleArr=[]){
-//     let spouse = findById(personObj, peopleArr, "currentSpouse")
+// function findPersonFamily(person={}, people=[]){
+//     let family = `${person.firstName} ${person.lastName}'s family members:`
+//     family += findPersonSpouse(person,people)
+//     family += findPersonSiblings(person,people)
+//     family += findPersonParents(person,people)
+    
+//     let spouse = findById(person, people, "currentSpouse")
 //     // displayPeople(spouse)
-//     let parents = findParents(personObj, peopleArr);
-//     let siblings = findSiblings(personObj,peopleArr);
+//     let parents = findParents(person, people);
+//     let siblings = findSiblings(person,people);
 //     // return spouse.concat(parents).concat(siblings)
 //     // return {spouse:spouse, parents:parents, siblings:siblings}
 //     let fam = {
@@ -498,23 +520,16 @@ function getParents (person, people) {
 //     }
 // }
 
-function findById(person, people, personPropStr){
-    return people.filter(function(person){
-        return person[personPropStr] === person.id
-    }); 
-}   
+// function findById(person, people, personPropStr){
+//     return people.filter(function(person){
+//         return person[personPropStr] === person.id
+//     }); 
+// }   
 
 
-function findParents (personObj, peopleArr){
-    let parentsString = "Parent(s):"
-    return peopleArr.filter(function(person){
-       return personObj.parents.includes(person.id) // code explained --> Does the personObj's array include the parents ID? 
-    })
-}
+// function findParents (person, people){
+//     return people.filter(function(person){
+//        return person.parents.includes(person.id) // code explained --> Does the personObj's array include the parents ID? 
+//     })
+// }
 
-function findSiblings(personObj, peopleArr){
-    // Does this array item contain the same ID as MY parents array in theirs?
-    return peopleArr.filter(function(person){
-        return personObj.parents.includes(person.parents[0]) || personObj.parents.includes(person.parents[1])
-    })
-}
