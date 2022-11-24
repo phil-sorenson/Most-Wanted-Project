@@ -80,8 +80,8 @@ function mainMenu(person, people) {
             break;
         case "family":
             findPersonSpouse(person,people);
-            findPersonSiblings(person,people);
             findPersonParents(person,people);
+            findPersonSiblings(person,people);
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             // let parents = findParents(person[0],people)
@@ -341,23 +341,52 @@ function findPersonSpouse (person, people) {
     displayFamilyInfo(foundPerson, "Spouse")
 }
 
-function findPersonSiblings(foundPerson, people){
-    // Does this array item contain the same ID as MY parents array in theirs?
-    let foundPerson = people.filter(function(person){
-        return person.parents.includes(person.parents[0]) || person.parents.includes(person.parents[1])
-    })
-    displayFamilyInfo(foundPerson, "Sibling")
+// function findPersonSiblings(person, people){
+//     let foundPerson = people.filter(function(el){
+//     let parentLength = el.parents
+//       if(el.id === person.id)
+//       return false;
+//       else if(parentLength.length < 2)
+//         return false;
+//     else if(person.parents.includes(el.parents[0])|| person.parents.includes(el.parents[1])){
+//         return true;
+//     }
+//     //   else if(el.parents[0] === person.parents[0] || el.parents[0] === person.parents[1] || el.parents[1] === person.parents[0] || el.parents[1] === person.parents[1]){
+//       else {
+//         return false;
+//       }
+//     })
+//       displayFamilyInfo(foundPerson,"Sibling")
+//   }
+function findPersonSiblings(person,people){
+    let siblings = people.filter(function(el){
+        if((person.parents.includes(el.parents[0]) || person.parents.includes(el.parents[1])) && person.id != el.id){
+            return true;
+        }
+        return false;
+    }); siblings = displayFamilyInfo(foundPerson, "Siblings")
+    return siblings;
 }
 
+// function findPersonSiblings(person, people){
+//     // Does this array item contain the same ID as MY parents array in theirs?
+//     return people.filter(function(el){
+//         if(person.parents.includes(el.parents[0]) || person.parents.includes(el.parents[1])){
+//             return true;
+//         }
+//     })
+//     displayFamilyInfo(foundPerson, "Sibling")
+// }
+
 function findPersonParents (person, people) {
-    let foundPerson = people.filter(function(el) {
-        if(el.id === person.parents[0] || el.id === person.parents[1]){
+    let parents = people.filter(function(el) {
+        if(person.parents[0] === el.id || person.parents[1] === el.id){
             return true;
         } else {
             return false;
         }
-    }); displayFamilyInfo(foundPerson, "Parent"); 
-    
+    }); parents = displayFamilyInfo(foundPerson, "Parent"); 
+    return parents;
 }
 
 function findPersonDescendants(person,people){
